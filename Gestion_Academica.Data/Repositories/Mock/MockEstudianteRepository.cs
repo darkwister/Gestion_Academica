@@ -90,7 +90,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                 Nombre = "",
                 Apellido = "",
                 Matricula = "",
-                Fecha_nacimiento = new DateTime(0000, 00, 00),
+                Fecha_nacimiento = new DateTime(0001, 01, 01),
                 Cedula = "",
                 Sexo = 'M',
                 Becado = 'N'
