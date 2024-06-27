@@ -1,4 +1,4 @@
-using Gestion_Academica.Web.Models;
+﻿using Gestion_Academica.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
