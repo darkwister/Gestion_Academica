@@ -1,4 +1,5 @@
-﻿using Gestion_Academica.Data.Interfaces;
+﻿using Gestion_Academica.Data.Entities;
+using Gestion_Academica.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,10 +40,11 @@ namespace Gestion_Academica.Web.Controllers
         // POST: CarreraController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Carrera carrera)
         {
             try
             {
+                this.carrerasRepository.Agregar(carrera);
                 return RedirectToAction(nameof(Index));
             }
             catch
