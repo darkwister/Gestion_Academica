@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Gestion_Academica.Data\Gestion_Academica.Data.csproj" />
+  </ItemGroup>
+
 </Project>
