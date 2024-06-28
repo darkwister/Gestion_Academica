@@ -17,15 +17,17 @@ namespace Gestion_Academica.Web.Controllers
         public ActionResult Index()
         {
 
-            var carrera = this.carrerasRepository.TraerTodos();
+            var carreras = this.carrerasRepository.TraerTodos();
 
-            return View(carrera);
+            return View(carreras);
         }
 
         // GET: CarreraController1/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var carrera = this.carrerasRepository.ObtenerPorId(id);
+
+            return View(carrera);
         }
 
         // GET: CarreraController1/Create

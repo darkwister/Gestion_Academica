@@ -10,11 +10,19 @@ namespace Gestion_Academica.Data.Repositories.Mocks
     public class MockCarrerasRepository : ICarrerasRepository
     {
         private readonly CarrerasContext context;
+        private static bool datosCargados = false;
 
         public MockCarrerasRepository(CarrerasContext context)
         {
             this.context = context;
-            this.CargarDatos();
+
+            if (!datosCargados ) 
+            {
+                this.CargarDatos();
+                datosCargados = true;
+
+            }
+
         }
 
         public void Actualizar(Carrera carrera)
