@@ -84,58 +84,51 @@ namespace Gestion_Academica.Data.Repositories.Mocks
 
         private void CargarDatos()
         {
-            Profesor profesor = new Profesor()
+            if (!this.context.Profesores.Any())
             {
-                Id = 1,
-                Nombre = "Juan",
-                Apellido = "Perez",
-                fechaNacimiento = DateTime.Now,
-                Cedula = 1234657891,
-                Sexo = 'M'
-            };
-
-            List<Profesor> Profesores = new List<Profesor>()
-            {
-                new Profesor()
+                List<Profesor> Profesores = new List<Profesor>()
                 {
-                    Id = 1,
-                    Nombre = "Juan",
-                    Apellido = "Perez",
-                    fechaNacimiento = DateTime.Now,
-                    Cedula = 1234657891,
-                    Sexo = 'M'
-                },
-                new Profesor()
-                {
-                    Id = 2,
-                    Nombre = "Maria Jose",
-                    Apellido = "Gutierrez",
-                    fechaNacimiento = DateTime.Now,
-                    Cedula = 1234657981,
-                    Sexo = 'F'
-                },
-                new Profesor()
-                {
-                    Id = 3,
-                    Nombre = "Carlos",
-                    Apellido = "Lopez",
-                    fechaNacimiento = DateTime.Now,
-                    Cedula = 1524657891,
-                    Sexo = 'M'
-                },
-                new Profesor()
-                {
-                    Id = 4,
-                    Nombre = "Mariel",
-                    Apellido = "Peralta",
-                    fechaNacimiento = DateTime.Now,
-                    Cedula = 1987654321,
-                    Sexo = 'F'
-                }
-            };
-
+                    new Profesor()
+                    {
+                        Id = 1,
+                        Nombre = "Juan",
+                        Apellido = "Perez",
+                        fechaNacimiento = new DateTime(1991,12,13),
+                        Cedula = 1234657891,
+                        Sexo = 'M'
+                    },
+                    new Profesor()
+                    {
+                        Id = 2,
+                        Nombre = "Maria Jose",
+                        Apellido = "Gutierrez",
+                        fechaNacimiento = new DateTime(1999,8,13),
+                        Cedula = 1234657981,
+                        Sexo = 'F'
+                    },
+                    new Profesor()
+                    {
+                        Id = 3,
+                        Nombre = "Carlos",
+                        Apellido = "Lopez",
+                        fechaNacimiento = DateTime.Now,
+                        Cedula = 1524657891,
+                        Sexo = 'M'
+                    },
+                    new Profesor()
+                    {
+                        Id = 4,
+                        Nombre = "Mariel",
+                        Apellido = "Peralta",
+                        fechaNacimiento = DateTime.Now,
+                        Cedula = 1987654321,
+                        Sexo = 'F'
+                    }
+                };
+           
             this.context.Profesores.AddRange(Profesores);
             this.context.SaveChanges();
+            }
         }
         private bool EsProfesorNull(Profesor profesor)
         {
@@ -147,6 +140,11 @@ namespace Gestion_Academica.Data.Repositories.Mocks
         private bool ExisteProfesor(int ProfesorId, int ProfesorCedula)
         {
             return this.context.Profesores.Any(cd => cd.Id == ProfesorId && cd.Cedula == ProfesorCedula);
+        }
+        private void LimpiarDatos(List<Profesor> profesores)
+        {
+            this.context.Profesores.RemoveRange(profesores);
+            this.context.SaveChanges();
         }
     }
 }
