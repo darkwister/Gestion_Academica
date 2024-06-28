@@ -15,6 +15,6 @@ namespace Gestion_Academica.Data.Context
             optionsBuilder.UseInMemoryDatabase("Profesores");
             base.OnConfiguring(optionsBuilder);
         }
-        public DbSet<Profesor> profesores { get; set; }
+        public DbSet<Profesor> Profesores { get; set; }
     }
 }
