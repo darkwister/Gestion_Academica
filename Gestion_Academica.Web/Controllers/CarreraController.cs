@@ -56,16 +56,18 @@ namespace Gestion_Academica.Web.Controllers
         // GET: CarreraController1/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var carrera = this.carrerasRepository.ObtenerPorId(id);
+            return View(carrera);
         }
 
         // POST: CarreraController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Carrera carrera)
         {
             try
             {
+                this.carrerasRepository.Actualizar(carrera);
                 return RedirectToAction(nameof(Index));
             }
             catch
