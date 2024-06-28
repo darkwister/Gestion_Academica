@@ -1,4 +1,5 @@
-﻿using Gestion_Academica.Data.Interfaces;
+﻿using Gestion_Academica.Data.Entities;
+using Gestion_Academica.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,8 @@ namespace Gestion_Academica.Web.Controllers
         // GET: ProfesorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var profesores = this.profesorRepository.ObtenerPorID(id);
+            return View(profesores);
         }
 
         // GET: ProfesorController/Create
@@ -33,10 +35,11 @@ namespace Gestion_Academica.Web.Controllers
         // POST: ProfesorController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Profesor profesor)
         {
             try
             {
+                this.profesorRepository.Agregar(profesor);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -48,37 +51,18 @@ namespace Gestion_Academica.Web.Controllers
         // GET: ProfesorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var profesores = this.profesorRepository.ObtenerPorID(id);
+            return View(profesores);
         }
 
         // POST: ProfesorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Profesor profesor)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProfesorController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProfesorController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
+                this.profesorRepository.Actualizar(profesor);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ProfesorContext>(options => options.UseInMemoryDatabase("Profesores"));
+builder.Services.AddDbContext<ProfesorContext>(options => options.UseInMemoryDatabase("GestionAcademica"));
 builder.Services.AddScoped<IProfesorRepository, MockProfesorRepository>();
 builder.Services.AddControllersWithViews();
 
