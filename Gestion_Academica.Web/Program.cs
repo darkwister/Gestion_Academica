@@ -7,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<EstudiantesContext>(options=>options.UseInMemoryDatabase("GestionAcademica"));
+builder.Services.AddDbContext<CarrerasContext>(options => options.UseInMemoryDatabase("GestionAcademica"));
+builder.Services.AddScoped<ICarrerasRepository, MockCarrerasRepository>();
 
+builder.Services.AddDbContext<EstudiantesContext>(options=>options.UseInMemoryDatabase("GestionAcademica"));
 builder.Services.AddScoped<IAEstudianteRepository,MockEstudianteRepository>();
 
 builder.Services.AddControllersWithViews();
