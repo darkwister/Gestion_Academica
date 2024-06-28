@@ -83,18 +83,20 @@ namespace Gestion_Academica.Data.Repositories.Mocks
 
         private void CargarDatos() 
         {
-            Carrera carrera = new Carrera()
+            // salami xd
+            //Carrera carrera = new Carrera()
+            //{
+
+            //    Codigo = 1,
+            //    Nombre = "",
+            //    Descripcion = "",
+            //    Estado = 1,
+            //    FechaCreacion = DateTime.Now
+
+            //};
+            if (!this.context.Carreras.Any())
             {
-
-                Codigo = 1,
-                Nombre = "",
-                Descripcion = "",
-                Estado = 1,
-                FechaCreacion = DateTime.Now
-
-            };
-
-            List<Carrera> carreras = new List<Carrera>() 
+                List<Carrera> carreras = new List<Carrera>()
             {
 
                 // 0 Incactivo 1 Activo
@@ -106,7 +108,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                     Descripcion = "Una carrera centrada en la tecnologia y el avance.",
                     Estado = 2,
                     FechaCreacion = DateTime.Now
-                
+
                 },
                 new Carrera(){
 
@@ -138,8 +140,9 @@ namespace Gestion_Academica.Data.Repositories.Mocks
 
             };
 
-            this.context.Carreras.AddRange(carreras);
-            this.context.SaveChanges();
+                this.context.Carreras.AddRange(carreras);
+                this.context.SaveChanges();
+            }
         }
 
         private bool EsCarreraNull(Carrera carreras) 

@@ -1,4 +1,5 @@
-﻿using Gestion_Academica.Data.Interfaces;
+﻿using Gestion_Academica.Data.Entities;
+using Gestion_Academica.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,8 @@ namespace Gestion_Academica.Web.Controllers
         // GET: EstudianteController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var estudiantes = this.estudianteRepository.ObtenerporId(id);
+            return View(estudiantes);
         }
 
         // GET: EstudianteController/Create
@@ -36,10 +38,11 @@ namespace Gestion_Academica.Web.Controllers
         // POST: EstudianteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Estudiantes estudiantes)
         {
             try
             {
+                this.estudianteRepository.Agregar(estudiantes);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -51,37 +54,18 @@ namespace Gestion_Academica.Web.Controllers
         // GET: EstudianteController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var estudiantes = this.estudianteRepository.ObtenerporId(id);
+            return View(estudiantes);
         }
 
         // POST: EstudianteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Estudiantes estudiantes)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: EstudianteController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EstudianteController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
+                this.estudianteRepository.Actualizar(estudiantes);
                 return RedirectToAction(nameof(Index));
             }
             catch

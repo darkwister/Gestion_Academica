@@ -88,7 +88,8 @@ namespace Gestion_Academica.Data.Repositories.Mocks
         }
         private void CargarDatos()
         {
-            List<Estudiantes> estudiantes = new List<Estudiantes>()
+            if (!this.context.Estudiantes.Any()){
+                List<Estudiantes> estudiantes = new List<Estudiantes>()
             {
                 new Estudiantes
                 {
@@ -125,8 +126,9 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                 }
             };
 
-            this.context.Estudiantes.AddRange(estudiantes);
-            this.context.SaveChanges();
+                this.context.Estudiantes.AddRange(estudiantes);
+                this.context.SaveChanges();
+            }
         }
 
         private bool EsEstudianteNull(Estudiantes estudiante)
