@@ -2,6 +2,10 @@
 
 Proyecto de DevOps del profesor Francis Ramirez.
 
+### Proyecto de Azure
+
+https://dev.azure.com/20222035DevOps/Gestion_Academica
+
 ### Integrantes
 
 - Elian Daniel De Los Santos [2022-2035]
