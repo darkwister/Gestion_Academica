@@ -1,4 +1,4 @@
-﻿
+
 
 using Gestion_Academica.Data.Context;
 using Gestion_Academica.Data.Entities;
@@ -97,7 +97,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
             if (!this.context.Carreras.Any())
             {
                 List<Carrera> carreras = new List<Carrera>()
-            {
+            }
 
                 // 0 Incactivo 1 Activo
 
