@@ -8,6 +8,17 @@ namespace Gestion_Academica.Data.Context
 
         }
 
+        public EstudiantesContext() 
+        {
+            
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase("GestionAcademica");
+            base.OnConfiguring(optionsBuilder);
+        }
+
         public DbSet<Entities.Estudiantes> Estudiantes { get; set; }
     }
 }
