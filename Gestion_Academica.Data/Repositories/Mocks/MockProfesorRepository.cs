@@ -34,13 +34,12 @@ namespace Gestion_Academica.Data.Repositories.Mocks
             this.context.Profesores.Update(profesorToUpdate);
             this.context.SaveChanges();
         }
-
         public void Agregar(Profesor profesor)
         {
             if (EsProfesorNull(profesor))
                 throw new ProfesorNullException("El profesor no debe de ser nulo");
 
-            if (ExisteProfesor(profesor.Id, profesor.Cedula))
+            if (ExisteProfesor(profesor.Id))
             {
                 throw new ProfesorDuplicadoException($"El profesor {profesor.Nombre} ya esta en los registros");
             }
@@ -57,12 +56,10 @@ namespace Gestion_Academica.Data.Repositories.Mocks
             this.context.Add(profesorToAdd);
             this.context.SaveChanges();
         }
-
         public Profesor ObtenerPorID(int Id)
         {
             return this.context.Profesores.Find(Id);
         }
-
         public void Remover(Profesor profesor)
         {
             if (EsProfesorNull(profesor))
@@ -76,12 +73,10 @@ namespace Gestion_Academica.Data.Repositories.Mocks
             this.context.Profesores.Remove(profesorToRemove);
             this.context.SaveChanges();
         }
-
         public List<Profesor> TraerTodos()
         {
             return this.context.Profesores.ToList();
         }
-
         private void CargarDatos()
         {
             if (!this.context.Profesores.Any())
@@ -137,14 +132,9 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                 result = true;
             return result;
         }
-        private bool ExisteProfesor(int ProfesorId, int ProfesorCedula)
+        private bool ExisteProfesor(int ProfesorId)
         {
-            return this.context.Profesores.Any(cd => cd.Id == ProfesorId && cd.Cedula == ProfesorCedula);
-        }
-        private void LimpiarDatos(List<Profesor> profesores)
-        {
-            this.context.Profesores.RemoveRange(profesores);
-            this.context.SaveChanges();
+            return this.context.Profesores.Any(cd => cd.Id == ProfesorId);
         }
     }
 }
