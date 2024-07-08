@@ -10,18 +10,11 @@ namespace Gestion_Academica.Data.Repositories.Mocks
     public class MockCarrerasRepository : ICarrerasRepository
     {
         private readonly CarrerasContext context;
-        private static bool datosCargados = false;
 
         public MockCarrerasRepository(CarrerasContext context)
         {
             this.context = context;
-
-            if (!datosCargados ) 
-            {
-                this.CargarDatos();
-                datosCargados = true;
-
-            }
+            this.CargarDatos();
 
         }
 
@@ -47,8 +40,12 @@ namespace Gestion_Academica.Data.Repositories.Mocks
             if (EsCarreraNull(carrera))
                 throw new CarreraNullExceptions("La carrera no debe ser nulo.");
 
-
+ 
             Carrera carreraToAdd =  CrearNuevaCarrera(carrera);
+
+            if (ExisteCarrera(carrera.Codigo))
+                throw new CarreraDuplicadoExceptions($"La carrera {carrera.Codigo} ya ha sido registrada");
+
 
             this.context.Carreras.Add(carreraToAdd);
             this.context.SaveChanges();
@@ -83,23 +80,11 @@ namespace Gestion_Academica.Data.Repositories.Mocks
 
         private void CargarDatos() 
         {
-            // salami xd
-            //Carrera carrera = new Carrera()
-            //{
 
-            //    Codigo = 1,
-            //    Nombre = "",
-            //    Descripcion = "",
-            //    Estado = 1,
-            //    FechaCreacion = DateTime.Now
-
-            //};
             if (!this.context.Carreras.Any())
             {
                 List<Carrera> carreras = new List<Carrera>()
             {
-
-                // 0 Incactivo 1 Activo
 
                 new Carrera(){
 
@@ -153,6 +138,11 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                 return true;
 
             return result;
+        }
+
+        private bool ExisteCarrera(int Id)
+        {
+            return this.context.Carreras.Any(cd => cd.Codigo == Id);
         }
 
         private Carrera BuscarCarrera(int codigo) 
