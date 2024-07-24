@@ -5,6 +5,8 @@
 
 trigger:
 - master
+- Dev
+- QA
 
 pool:
   vmImage: ubuntu-latest
