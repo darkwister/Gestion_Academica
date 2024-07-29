@@ -9,12 +9,13 @@ namespace Gestion_Academica.Data.Context
         {
             
         }
+        public ProfesorContext() { }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseInMemoryDatabase("Profesores");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseInMemoryDatabase("Profesores");
+            base.OnConfiguring(optionsBuilder);
+        }
         public DbSet<Profesor> Profesores { get; set; }
     }
 }
