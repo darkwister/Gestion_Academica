@@ -8,11 +8,15 @@ namespace Gestion_Academica.Data.Repositories.Mocks
     public class MockEstudianteRepository : IAEstudianteRepository
     {
         private readonly EstudiantesContext context;
-
+        private bool datosCargados = false;
         public MockEstudianteRepository(EstudiantesContext context)
         {
             this.context = context;
-            this.CargarDatos();
+            if (!datosCargados)
+            {
+                this.CargarDatos();
+                datosCargados = true;
+            }
         }
         public void Actualizar(Estudiantes estudiante)
         {
@@ -84,19 +88,8 @@ namespace Gestion_Academica.Data.Repositories.Mocks
         }
         private void CargarDatos()
         {
-            Estudiantes estudiante = new Estudiantes
-            {
-                Id = 1,
-                Nombre = "",
-                Apellido = "",
-                Matricula = "",
-                Fecha_nacimiento = new DateTime(0001, 01, 01),
-                Cedula = "",
-                Sexo = 'M',
-                Becado = 'N'
-            };
-
-            List<Estudiantes> estudiantes = new List<Estudiantes>()
+            if (!this.context.Estudiantes.Any()){
+                List<Estudiantes> estudiantes = new List<Estudiantes>()
             {
                 new Estudiantes
                 {
@@ -133,8 +126,9 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                 }
             };
 
-            this.context.Estudiantes.AddRange(estudiantes);
-            this.context.SaveChanges();
+                this.context.Estudiantes.AddRange(estudiantes);
+                this.context.SaveChanges();
+            }
         }
 
         private bool EsEstudianteNull(Estudiantes estudiante)

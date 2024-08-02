@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Gestion_Academica.Data.Entities.Estudiantes>
+﻿@model IEnumerable<Gestion_Academica.Data.Entities.Profesor>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Listado de Estudiantes</h1>
+<h1>Listado de Profesores</h1>
 
 <p>
-    <a asp-action="Create">Crear nuevo estudiante</a>
+    <a asp-action="Create">Crear nuevo profesor</a>
 </p>
 <table class="table">
     <thead>
@@ -22,19 +22,13 @@
                 @Html.DisplayNameFor(model => model.Apellido)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Matricula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha_nacimiento)
+                @Html.DisplayNameFor(model => model.fechaNacimiento)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cedula)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sexo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Becado)
             </th>
             <th></th>
         </tr>
@@ -52,10 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha_nacimiento)
+                @Html.DisplayFor(modelItem => item.fechaNacimiento)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cedula)
@@ -64,11 +55,8 @@
                 @Html.DisplayFor(modelItem => item.Sexo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Becado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id })
-                @Html.ActionLink("Details", "Details", new { id=item.Id})
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
             </td>
         </tr>
 }
