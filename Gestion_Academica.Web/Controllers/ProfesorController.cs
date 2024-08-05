@@ -10,7 +10,7 @@ namespace Gestion_Academica.Web.Controllers
         private readonly IProfesorRepository profesorRepository;
         public ProfesorController(IProfesorRepository profesorRepository) 
         {
-            // Una prueba b
+            // Una prueba c QA
             this.profesorRepository = profesorRepository;
         }
         // GET: ProfesorController
