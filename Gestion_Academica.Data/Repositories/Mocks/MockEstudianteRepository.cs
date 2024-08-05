@@ -8,15 +8,10 @@ namespace Gestion_Academica.Data.Repositories.Mocks
     public class MockEstudianteRepository : IAEstudianteRepository
     {
         private readonly EstudiantesContext context;
-        private bool datosCargados = false;
         public MockEstudianteRepository(EstudiantesContext context)
         {
             this.context = context;
-            if (!datosCargados)
-            {
-                this.CargarDatos();
-                datosCargados = true;
-            }
+            this.CargarDatos();
         }
         public void Actualizar(Estudiantes estudiante)
         {
