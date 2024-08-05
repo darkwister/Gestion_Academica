@@ -13,6 +13,11 @@ namespace Gestion_Academica.Data.Context
 
         }
 
+        public CarrerasContext() 
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseInMemoryDatabase("GestionAcademica");
