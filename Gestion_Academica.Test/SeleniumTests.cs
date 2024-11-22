@@ -160,7 +160,7 @@ namespace SeleniumTests
             var button = _driver.FindElement(By.LinkText("Crear nuevo estudiante"));
             button.Click();
 
-            // Verificar que la acción genera el resultado esperado
+            // Verificar el título de la página
             Assert.Equal("Crear estudiante - Gestion_Academica.Web", _driver.Title);
 
             _test.Pass("El título de la página de crear estudiantes es correcto.");
@@ -276,6 +276,57 @@ namespace SeleniumTests
             Assert.Contains("9", carreraRow.Text); 
             Assert.Contains("20/11/2024 00:00:00", carreraRow.Text);
             _test.Pass("La carrera fue registrada correctamente.");
+        }
+
+        [Fact]
+        public void Test_EditCarrera()
+        {
+            CreateTest("Test_EditCarrera", "Editar una carrera existente");
+            // Navegar a la página principal de Carreras
+            _driver.Navigate().GoToUrl($"{_baseUrl}Carrera");
+
+            // Hacer click en el boton de editar de el primer registro
+            var editButton = _driver.FindElement(By.XPath("/html/body/div/main/table/tbody/tr[1]/td[6]/a[1]"));
+            editButton.Click();
+
+            // Modificar los campos del formulario
+            var codigoInput = _driver.FindElement(By.Id("Codigo"));
+            codigoInput.Clear();
+            codigoInput.SendKeys("2");
+
+            var nombreInput = _driver.FindElement(By.Id("Nombre"));
+            nombreInput.Clear();
+            nombreInput.SendKeys("Sonido");
+
+            var descripcionInput = _driver.FindElement(By.Id("Descripcion"));
+            descripcionInput.Clear();
+            descripcionInput.SendKeys("Una carrera centrada en el sonido y el desarrollo de audio.");
+
+            var estadoInput = _driver.FindElement(By.Id("Estado"));
+            estadoInput.Clear();
+            estadoInput.SendKeys("2");
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript("document.getElementById('FechaCreacion').value = '2019-11-22T13:06:45';");
+
+            // Guardar el registro
+            var saveButton = _driver.FindElement(By.XPath("//input[@value='Save']"));
+            saveButton.Click();
+
+            // Verificar que la página redirige a la lista de carreras
+            Assert.Contains("/Carrera", _driver.Url);
+
+            TakeScreenshot("EditedCarreraData");
+
+            // Verificar que los datos actualizados aparecen en la primera fila de la tabla
+            var carreraRow = _driver.FindElement(By.XPath("/html/body/div/main/table/tbody/tr[1]"));
+            Assert.Contains("2", carreraRow.Text);
+            Assert.Contains("Sonido", carreraRow.Text);
+            Assert.Contains("Una carrera centrada en el sonido y el desarrollo de audio.", carreraRow.Text);
+            Assert.Contains("2", carreraRow.Text);
+            Assert.Contains("22/11/2019 13:06:45", carreraRow.Text);
+
+            _test.Pass("La carrera fue editaada correctamente");
         }
 
         public void Dispose()
