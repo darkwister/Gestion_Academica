@@ -9,11 +9,11 @@ using AventStack.ExtentReports.Reporter;
 
 namespace SeleniumTests
 {
-    public class LocalhostEdgeTests
+    public class LocalhostEdgeTests : IDisposable
     {
         private readonly IWebDriver _driver;
         private readonly string _baseUrl = "http://localhost:5015/";
-        private ExtentReports _extentReports;
+        private static ExtentReports _extentReports;
         private ExtentTest _test;
 
         public LocalhostEdgeTests()
@@ -23,15 +23,17 @@ namespace SeleniumTests
             _driver = new EdgeDriver(options);
 
             // Configurar ExtentReports
-            var reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Tested", "ExtentReport.html");
-            var sparkReporter = new ExtentSparkReporter(reportPath);
-            sparkReporter.Config.DocumentTitle = "Reporte de Pruebas Selenium";
-            sparkReporter.Config.ReportName = "Pruebas Automatizadas con Selenium";
-            sparkReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Standard;
+            if (_extentReports == null)
+            {
+                var reportPath = Path.Combine(Directory.GetCurrentDirectory(), "Tested", "ExtentReport.html");
+                var sparkReporter = new ExtentSparkReporter(reportPath);
+                sparkReporter.Config.DocumentTitle = "Reporte de Pruebas Selenium";
+                sparkReporter.Config.ReportName = "Pruebas Automatizadas con Selenium";
+                sparkReporter.Config.Theme = AventStack.ExtentReports.Reporter.Config.Theme.Standard;
 
-
-            _extentReports = new ExtentReports();
-            _extentReports.AttachReporter(sparkReporter);
+                _extentReports = new ExtentReports();
+                _extentReports.AttachReporter(sparkReporter);
+            }
         }
 
         private void TakeScreenshot(string fileName)
@@ -52,12 +54,17 @@ namespace SeleniumTests
             screenshot.SaveAsFile($"{directoryPath}{fileName}.png");
         }
 
+        // Método de Setup para crear el test
+        private void CreateTest(string testName, string testInfo)
+        {
+            _test = _extentReports.CreateTest(testName).Info(testInfo);
+        }
+
         [Fact]
         public void Test_HomePageTitle()
         {
             // Informacion para el reporte
-            _test = _extentReports.CreateTest("Test_HomePageTitle")
-                                  .Info("Verificar el título de la página de inicio.");
+            CreateTest("Test_HomePageTitle", "Verificar el título de la página de inicio.");
             // Navegar a la URL base
             _driver.Navigate().GoToUrl(_baseUrl);
 
@@ -72,9 +79,7 @@ namespace SeleniumTests
         public void Test_IndexProfesoresTitle()
         {
 
-            _test = _extentReports.CreateTest("Test_IndexProfesoresTitle")
-                                  .Info("Verificar el título de la página de Profesores.");
-
+            CreateTest("Test_IndexProfesoresTitle", "Verificar el título de la página de Profesores.");
             // Navegar a la URL base
             _driver.Navigate().GoToUrl(_baseUrl);
 
@@ -92,8 +97,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_IndexEstudiantesTitle()
         {
-            _test = _extentReports.CreateTest("Test_IndexEstudiantesTitle")
-                                  .Info("Verificar el título de la página de Estudiantes.");
+            CreateTest("Test_IndexEstudiantesTitle", "Verificar el título de la página de Estudiantes.");
             // Navegar a la URL base
             _driver.Navigate().GoToUrl(_baseUrl);
 
@@ -111,8 +115,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_IndexCarrerasTitle()
         {
-            _test = _extentReports.CreateTest("Test_IndexCarrerasTitle")
-                      .Info("Verificar el título de la página de Carreras.");
+            CreateTest("Test_IndexCarrerasTitle", "Verificar el título de la página de Carreras.");
 
             // Navegar a la URL base
             _driver.Navigate().GoToUrl(_baseUrl);
@@ -131,9 +134,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_HomePrivacyTitle()
         {
-            _test = _extentReports.CreateTest("Test_HomePrivacyTitle")
-                      .Info("Verificar el título de la página de Privacidad.");
-
+            CreateTest("Test_HomePrivacyTitle", "Verificar el título de la página de Privacidad.");
             // Navegar a la URL base
             _driver.Navigate().GoToUrl(_baseUrl);
 
@@ -151,8 +152,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_ClickButtonAndVerifyTitle()
         {
-            _test = _extentReports.CreateTest("Test_ClickButtonAndVerifyTitle")
-                      .Info("Verificar el título de la página de crear estudiantes.");
+            CreateTest("Test_ClickButtonAndVerifyTitle", "Verificar el título de la página de crear estudiantes.");
             // Navegar a la página
             _driver.Navigate().GoToUrl($"{_baseUrl}Estudiante");
 
@@ -170,8 +170,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_RegisterNewEstudiante()
         {
-            _test = _extentReports.CreateTest("Test_RegisterNewEstudiante")
-                                  .Info("Registrar un nuevo estudiante.");
+            CreateTest("Test_RegisterNewEstudiante", "Registrar un nuevo estudiante.");
             // Navegar a la página de "Crear nuevo estudiante"
             _driver.Navigate().GoToUrl($"{_baseUrl}Estudiante/Create");
 
@@ -210,9 +209,7 @@ namespace SeleniumTests
         [Fact]
         public void Test_RegisterNewProfesor()
         {
-            _test = _extentReports.CreateTest("Test_RegisterNewProfesor")
-                      .Info("Registrar un nuevo profesor.");
-
+            CreateTest("Test_RegisterNewProfesor", "Registrar un nuevo profesor.");
             // Navega a la página de "Crear nuevo profesor"
             _driver.Navigate().GoToUrl($"{_baseUrl}Profesor/Create");
 
@@ -244,15 +241,12 @@ namespace SeleniumTests
             Assert.Contains("1987654321", professorRow.Text);
             Assert.Contains("M", professorRow.Text);
             _test.Pass("El profesor fue registrado correctamente.");
-            Dispose();
         }
 
         [Fact]
         public void Test_RegisterNewCarrera()
         {
-            _test = _extentReports.CreateTest("Test_RegisterNewCarrera")
-                      .Info("Registrar una nueva carrera.");
-
+            CreateTest("Test_RegisterNewCarrera", "Registrar una nueva carrera.");
             // Navega a la página de "Crear nueva carrera"
             _driver.Navigate().GoToUrl($"{_baseUrl}Carrera/Create");
 
@@ -282,7 +276,6 @@ namespace SeleniumTests
             Assert.Contains("9", carreraRow.Text); 
             Assert.Contains("20/11/2024 00:00:00", carreraRow.Text);
             _test.Pass("La carrera fue registrada correctamente.");
-            Dispose();
         }
 
         public void Dispose()
