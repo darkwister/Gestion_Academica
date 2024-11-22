@@ -80,7 +80,7 @@ namespace Gestion_Academica.Test
                 Codigo = 2,
                 Nombre = "Software",
                 Descripcion = "Una carrera centrada en la tecnologia y el avance.",
-                Estado = 2,
+                Estado = true,
                 FechaCreacion = DateTime.Now
             };
 

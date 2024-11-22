@@ -91,7 +91,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                     Codigo = 2,
                     Nombre = "Software",
                     Descripcion = "Una carrera centrada en la tecnologia y el avance.",
-                    Estado = 2,
+                    Estado = true,
                     FechaCreacion = DateTime.Now
 
                 },
@@ -100,7 +100,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                     Codigo = 3,
                     Nombre = "Multimedia",
                     Descripcion = "Centrados en lo visual, buscando el entendimiento y desarrollo de lo visual.",
-                    Estado = 3,
+                    Estado = true,
                     FechaCreacion = DateTime.Now
 
                 },
@@ -109,7 +109,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                     Codigo = 4,
                     Nombre = "Mecatronica",
                     Descripcion = "Robots.",
-                    Estado = 4,
+                    Estado = true,
                     FechaCreacion = DateTime.Now
 
                 },
@@ -118,7 +118,7 @@ namespace Gestion_Academica.Data.Repositories.Mocks
                     Codigo = 5,
                     Nombre = "Inteligencia Artificial",
                     Descripcion = "En tiempos actuales, esta es probablemente una de las carreras del futuro.",
-                    Estado = 5,
+                    Estado = false,
                     FechaCreacion = DateTime.Now
 
                 }

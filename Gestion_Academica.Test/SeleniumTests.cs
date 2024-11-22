@@ -251,10 +251,15 @@ namespace SeleniumTests
             _driver.Navigate().GoToUrl($"{_baseUrl}Carrera/Create");
 
             // Ingresa datos en el formulario
-            _driver.FindElement(By.Id("Codigo")).SendKeys("101");
             _driver.FindElement(By.Id("Nombre")).SendKeys("Ingeniería en Sistemas");
             _driver.FindElement(By.Id("Descripcion")).SendKeys("Carrera enfocada en el diseño y desarrollo de software.");
-            _driver.FindElement(By.Id("Estado")).SendKeys("9"); 
+
+            var estadoCheckbox = _driver.FindElement(By.Id("Estado"));
+            if (!estadoCheckbox.Selected)
+            {
+                estadoCheckbox.Click(); // Asegura que el estado esté marcado como verdadero (activo)
+            }
+
             _driver.FindElement(By.Id("FechaCreacion")).Click();
             IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
             js.ExecuteScript("document.getElementById('FechaCreacion').value = '2024-11-20T00:00';");
@@ -270,10 +275,8 @@ namespace SeleniumTests
             TakeScreenshot("CarreraRegistred");
             // Verifica que la nueva carrera aparece en la lista
             var carreraRow = _driver.FindElement(By.XPath("//table/tbody/tr[last()]"));
-            Assert.Contains("101", carreraRow.Text);
             Assert.Contains("Ingeniería en Sistemas", carreraRow.Text);
             Assert.Contains("Carrera enfocada en el diseño y desarrollo de software.", carreraRow.Text);
-            Assert.Contains("9", carreraRow.Text); 
             Assert.Contains("20/11/2024 00:00:00", carreraRow.Text);
             _test.Pass("La carrera fue registrada correctamente.");
         }
@@ -289,11 +292,6 @@ namespace SeleniumTests
             var editButton = _driver.FindElement(By.XPath("/html/body/div/main/table/tbody/tr[1]/td[6]/a[1]"));
             editButton.Click();
 
-            // Modificar los campos del formulario
-            var codigoInput = _driver.FindElement(By.Id("Codigo"));
-            codigoInput.Clear();
-            codigoInput.SendKeys("2");
-
             var nombreInput = _driver.FindElement(By.Id("Nombre"));
             nombreInput.Clear();
             nombreInput.SendKeys("Sonido");
@@ -302,9 +300,16 @@ namespace SeleniumTests
             descripcionInput.Clear();
             descripcionInput.SendKeys("Una carrera centrada en el sonido y el desarrollo de audio.");
 
-            var estadoInput = _driver.FindElement(By.Id("Estado"));
-            estadoInput.Clear();
-            estadoInput.SendKeys("2");
+            // Cambia el estado actual de el Checkbox
+            var estadoCheckbox = _driver.FindElement(By.Id("Estado"));
+            if (!estadoCheckbox.Selected)
+            {
+                estadoCheckbox.Click();
+            }
+            else
+            {
+                estadoCheckbox.Click();
+            }
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
             js.ExecuteScript("document.getElementById('FechaCreacion').value = '2019-11-22T13:06:45';");
@@ -320,10 +325,8 @@ namespace SeleniumTests
 
             // Verificar que los datos actualizados aparecen en la primera fila de la tabla
             var carreraRow = _driver.FindElement(By.XPath("/html/body/div/main/table/tbody/tr[1]"));
-            Assert.Contains("2", carreraRow.Text);
             Assert.Contains("Sonido", carreraRow.Text);
             Assert.Contains("Una carrera centrada en el sonido y el desarrollo de audio.", carreraRow.Text);
-            Assert.Contains("2", carreraRow.Text);
             Assert.Contains("22/11/2019 13:06:45", carreraRow.Text);
 
             _test.Pass("La carrera fue editaada correctamente");
