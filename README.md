@@ -1,13 +1,10 @@
-# Gestion_Academica
+# Gestion_Academica pruebas en selenium
 
-Proyecto de DevOps del profesor Francis Ramirez.
-
-### Proyecto de Azure
-
-https://dev.azure.com/20222035DevOps/Gestion_Academica
-
-### Integrantes
-
-- Elian Daniel De Los Santos [2022-2035]
-- Omar Sebastián Guzmán Guerrero [2022-0866]
-- Job Jefferson Pérez Cabrera [2023-0188]
+Proyecto de DevOps para el profesor Francis Ramirez.
+Pruebas automatizadas hechas con la libreria Selenium para programacion 3
+  
+  -Ubicacion de los archivos requeridos:
+   
+   --Archivo HTML: bin/Debug/net8.0/Testing
+   
+   --Capturas de pantalla: bin/Debug/net8.0/Screenshots
